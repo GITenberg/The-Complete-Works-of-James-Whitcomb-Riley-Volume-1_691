@@ -1,0 +1,26 @@
+_repo: The-Complete-Works-of-James-Whitcomb-Riley-Volume-1_691
+creator:
+  author:
+    agent_name: Riley, James Whitcomb
+    aliases:
+    - Johnson, Benj. F. of Boone
+    - Johnson, B. F.
+    birthdate: 1849
+    deathdate: 1916
+    gutenberg_agent_id: '356'
+    url: http://www.gutenberg.org/2009/agents/356
+    wikipedia: http://en.wikipedia.org/wiki/James_Whitcomb_Riley
+description: ''
+gutenberg_issued: '1996-10-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '691'
+language: en
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcc 'PS'
+- !lcsh 'American poetry'
+title: The Complete Works of James Whitcomb Riley — Volume 1
+url: http://www.gutenberg.org/ebooks/691
