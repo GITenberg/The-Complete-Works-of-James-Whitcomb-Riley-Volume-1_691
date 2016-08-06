@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: Zbtx4udhfgwFtflho/7DE+FHUQlXf+wZsKD3/+0CvT/7/se781AGSSrsA62Oi2jm8XjR0vXJPH7ckEQMHeXnrkioeZCrXkY+2oCQKIUNkerTXEmCthWwitCQz4CA3K+HtY5Gu5OGnwrXDP1fEw8I4FqZM5r4/t6FJ6NaZKehc89eU9MSkjSVFqPk5ofC+JWhLCIDYYvmi1UqdeUtAQ+IZi/+a15sZo3kFBmhv2vxWJLqNEtp/3wR/VLft1l/9BK2UaKto2VAM77moKElpqp2myh0vB/15HfsoBp+Su/c5M5ep7t9X9OfT0QzfY8OhXGB39UmwVtEQNSHyhjAYsnoS5SevkyysDtTyjKJ//KLDMzEVOLlTSprhfIgl7dXULkj+hAGHkeV/ESktKOGvD+D+59AAlTgRjLHnoLYe1tVfLMqdklEZ13vJ43yRXY6X9MencbpbJC8QT+cxV3qzERRmcFIaM+twyE26YFT5dYgSqqbWwBXOrP4yPOWQ1d0b0Y7swIxrB/VQbYxCYNGP6cd5dw6CSwrvSfGOJjbHCMWoJ0HSkdJYCtFZwIKZqnlgWmn5/Ee6QL3DtBiB3ijFO0VjMwgK54vHzEKrJ0jLQFh7tzVYmQcy8rNEaWWeQAuIcSavdxvfhysqrTTArUSw4MB7o3feOk1XgUGFK+k/POXSCI=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/The-Complete-Works-of-James-Whitcomb-Riley-Volume-1_691
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
